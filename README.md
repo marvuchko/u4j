@@ -44,9 +44,7 @@ For Gradle:
 implementation 'io.github.marvuchko:u4j:1.0.0'
 ```
 
----
-
-### Usage
+## Usage
 
 The main class for working with ULIDs is U4J, which provides simple static methods to create or manage ULIDs. Below are
 examples of how to use the library.
@@ -91,7 +89,7 @@ System.out.printf("ULID from bytes: %s%n",ulid);
 
 ---
 
-### API Reference
+## API Reference
 
 **U4J Class**
 
@@ -124,20 +122,20 @@ The `ULID` class offers the following methods:
 
 ---
 
-### License
+## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
 ---
 
-### Contributing
+## Contributing
 
 Contributions are welcome! Feel free to open issues or submit pull requests to enhance the functionality.
 
 
 ---
 
-### Sections Explained:
+## Sections Explained:
 
 1. **Installation**: Provides instructions for adding the library to a project via Maven or Gradle.
 2. **Usage**: Shows examples of generating ULIDs using the `U4J` class, including from a timestamp, byte array, or
