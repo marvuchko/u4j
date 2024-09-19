@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
+    <title>U4J: ULID Generation Library for Java</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-900 font-sans">
+<!-- Header Section -->
+<header class="bg-blue-900 w-screen pl-36 flex justify-center items-center ">
+    <div class="flex justify-center p-12">
+        <img alt="logo" class="w-32" src="../images/logo.png">
+    </div>
+    <div class="container text-gray-900">
+        <h1 class="text-5xl font-bold">ULID Generation Library for Java</h1>
+        <p class="mt-2 text-2xl">A lightweight and easy-to-use ULID generation library</p>
+    </div>
+</header>
+<!-- Main Content Section -->
+<main class="container mx-auto mt-10 px-6">
+    <!-- Introduction -->
+    <section class="mb-10">
+        <h2 class="text-3xl font-semibold mb-4">Overview</h2>
+        <p class="text-lg">
+            U4J is a simple and lightweight Java library for generating ULIDs (Universally Unique Lexicographically
+            Sortable Identifiers). It provides an easy-to-use API for creating ULIDs based on timestamps, byte arrays,
+            or strings. ULIDs are perfect for applications requiring distributed unique ID generation.
+        </p>
+    </section>
+    <!-- Features Section -->
+    <section class="mb-10">
+        <h2 class="text-3xl font-semibold mb-4">Features</h2>
+        <ul class="list-disc list-inside space-y-2 text-lg">
+            <li>Generate ULIDs based on the current timestamp.</li>
+            <li>Create ULIDs from custom timestamps, strings, or byte arrays.</li>
+            <li>Validate ULIDs easily.</li>
+            <li>Compact, lexicographically sortable, and URL-safe format.</li>
+        </ul>
+    </section>
+    <!-- Installation Section -->
+    <section class="mb-10">
+        <h2 class="text-3xl font-semibold mb-4">Installation</h2>
+        <p class="text-lg">To use U4J in your Java project, you can add it as a dependency. If you're using Maven,
+            include the following dependency in your project:</p>
+        <pre class="bg-gray-800 text-white p-4 rounded mt-4">
+            <code>&lt;dependency&gt;
+              &lt;groupId&gt;io.github.marvuchko&lt;/groupId&gt;
+              &lt;artifactId&gt;u4j&lt;/artifactId&gt;
+              &lt;version&gt;1.0.0&lt;/version&gt;
+            &lt;/dependency&gt;
+            </code>
+      </pre>
+    </section>
+    <!-- Quick Start Section -->
+    <section class="mb-10">
+        <h2 class="text-3xl font-semibold mb-4">Quick Start</h2>
+        <p class="text-lg">Here are some examples to help you get started with U4J:</p>
+        <div class="bg-gray-800 text-white p-4 rounded mt-4">
+            <h3 class="text-xl font-semibold">1. Generating a ULID</h3>
+            <pre class="mt-2">
+<code>import org.marvuchko.ULID;
+import org.marvuchko.U4J;
+
+public class Main {
+  public static void main(String[] args) {
+    ULID ulid = U4J.ulid(); // Generate a ULID based on the current timestamp
+    System.out.println("Generated ULID: " + ulid.asString());
+  }
+}
+</code>
+        </pre>
+        </div>
+        <div class="bg-gray-800 text-white p-4 rounded mt-4">
+            <h3 class="text-xl font-semibold">2. Generating a ULID from a Timestamp</h3>
+            <pre class="mt-2">
+<code>import org.marvuchko.ULID;
+import org.marvuchko.U4J;
+
+public class Main {
+  public static void main(String[] args) {
+    long timestamp = System.currentTimeMillis();
+    ULID ulid = U4J.ulid(timestamp); // Generate a ULID based on a specific timestamp
+    System.out.println("ULID from Timestamp: " + ulid.asString());
+  }
+}
+</code>
+        </pre>
+        </div>
+    </section>
+    <!-- Validation Section -->
+    <section class="mb-10">
+        <h2 class="text-3xl font-semibold mb-4">Validating ULIDs</h2>
+        <p class="text-lg">You can easily validate an existing ULID string or byte array using U4J:</p>
+        <div class="bg-gray-800 text-white p-4 rounded mt-4">
+               <pre class="mt-2">
+<code>import org.marvuchko.U4J;
+
+public class Main {
+  public static void main(String[] args) {
+    String ulidString = "01F4E7XJPXGDB8X5S5GTAC9B0M";
+    boolean isValid = U4J.isValid(ulidString); // Validate a ULID string
+    System.out.println("Is Valid ULID: " + isValid);
+  }
+}
+</code>
+        </pre>
+        </div>
+    </section>
+    <!-- License Section -->
+    <section class="mb-10">
+        <h2 class="text-3xl font-semibold mb-4">License</h2>
+        <p class="text-lg">
+            This library is open-source and licensed under the MIT License.
+        </p>
+    </section>
+</main>
+<!-- Footer Section -->
+<footer class="bg-gray-800 text-white py-6 mt-10">
+    <div class="container mx-auto text-center">
+        <p>&copy; 2024 U4J Library | Created by Marvuchko</p>
+    </div>
+</footer>
+</body>
+</html>

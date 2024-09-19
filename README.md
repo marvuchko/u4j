@@ -2,15 +2,11 @@
     <img alt="Logo" src=".github/images/logo.png" />
 </p>
 
-
-
 # U4J: ULID Java Library
 
 **U4J** _(ULIDs for Java)_ is a lightweight utility library for generating and managing ULIDs (Universally Unique
 Lexicographically Sortable Identifiers) in Java. It provides convenient static methods for creating ULIDs, either based
 on the current timestamp, a custom timestamp, or existing ULID strings/byte arrays.
-
-
 
 ![Licence](https://camo.githubusercontent.com/074d841936b392ebeca682f2069fd1ec1eca8a6a375cf541c6549ee11688cb51/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6c6963656e73652d6d69742d626c75652e737667)
 
@@ -21,7 +17,6 @@ on the current timestamp, a custom timestamp, or existing ULID strings/byte arra
 - Support for creating ULIDs from existing byte arrays or strings.
 - Immutable, lightweight, and thread-safe design.
 - Full support for serialization and comparison.
-
 
 ## Getting Started
 
@@ -68,7 +63,9 @@ You can create a ULID based on a specific timestamp:
 ```Java
 long timestamp = System.currentTimeMillis(); // or any other timestamp in milliseconds
 ULID ulid = ulid(timestamp);
-System.out.printf("ULID from timestamp: %s%n",ulid);
+System.out.
+
+printf("ULID from timestamp: %s%n",ulid);
 ```
 
 **Creating a ULID from an Existing String**
@@ -76,7 +73,9 @@ System.out.printf("ULID from timestamp: %s%n",ulid);
 ```Java
 String ulidString = "01F8MECHZX3TBDSZ7XY9GHZ4QJ"; // Example ULID string
 ULID ulid = ulid(ulidString);
-System.out.printf("ULID from string: %s%n",ulid);
+System.out.
+
+printf("ULID from string: %s%n",ulid);
 ```
 
 **Creating a ULID from an Existing Byte Array**
@@ -84,7 +83,9 @@ System.out.printf("ULID from string: %s%n",ulid);
 ```Java
 byte[] ulidBytes = new byte[]{ ...}; // ULID byte array
 ULID ulid = ulid(ulidBytes);
-System.out.printf("ULID from bytes: %s%n",ulid);
+System.out.
+
+printf("ULID from bytes: %s%n",ulid);
 ```
 
 ## API Reference
@@ -125,7 +126,6 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ## Contributing
 
 Contributions are welcome! Feel free to open issues or submit pull requests to enhance the functionality.
-
 
 ## Sections Explained:
 

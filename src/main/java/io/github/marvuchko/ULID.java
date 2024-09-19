@@ -151,15 +151,6 @@ public class ULID implements Serializable, Comparable<byte[]> {
     }
 
     /**
-     * Returns the ULID as a string.
-     *
-     * @return the ULID as a {@code String}.
-     */
-    public String value() {
-        return new String(value);
-    }
-
-    /**
      * Sets the ULID value.
      * <p>
      * The byte array must represent a valid 26-character ULID.
@@ -174,6 +165,15 @@ public class ULID implements Serializable, Comparable<byte[]> {
             return;
         }
         throw new IllegalArgumentException("Invalid ULID. It must be 26 characters long.");
+    }
+
+    /**
+     * Returns the ULID as a string.
+     *
+     * @return the ULID as a {@code String}.
+     */
+    public String value() {
+        return new String(value);
     }
 
     /**

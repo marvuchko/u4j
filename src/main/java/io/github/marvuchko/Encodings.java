@@ -4,6 +4,8 @@ import java.security.SecureRandom;
 import java.time.Instant;
 import java.util.Arrays;
 
+import static io.github.marvuchko.ULID.isValid;
+
 /**
  * Utility class for encoding and decoding components of a ULID (Universally Unique Lexicographically Sortable Identifier).
  * It provides methods for encoding timestamps, generating random values, and decoding ULID timestamps.
@@ -82,7 +84,7 @@ final class Encodings {
      * @throws IllegalArgumentException if the ULID is invalid (must be 26 characters long).
      */
     static Instant decodeTimestamp(byte[] ulidValue) {
-        if (ulidValue == null || ulidValue.length != Constants.ULID_LENGTH) {
+        if (!isValid(ulidValue)) {
             throw new IllegalArgumentException("Invalid ULID. It must be 26 characters long.");
         }
 
