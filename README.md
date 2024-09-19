@@ -50,7 +50,7 @@ import static io.github.marvuchko.U4J.ulid;
 public class Main {
     public static void main(String[] args) {
         var ulid = ulid(); // ULID generated based on the current timestamp.
-        System.out.printf("ULID: %s%n", ulid);
+        System.out.println(ulid); // 01J867H5SF1P2H7S846Q2K1R1M
     }
 }
 
@@ -63,9 +63,7 @@ You can create a ULID based on a specific timestamp:
 ```Java
 long timestamp = System.currentTimeMillis(); // or any other timestamp in milliseconds
 ULID ulid = ulid(timestamp);
-System.out.
-
-printf("ULID from timestamp: %s%n",ulid);
+System.out.printf("ULID from timestamp: %s%n",ulid);
 ```
 
 **Creating a ULID from an Existing String**
@@ -73,9 +71,7 @@ printf("ULID from timestamp: %s%n",ulid);
 ```Java
 String ulidString = "01F8MECHZX3TBDSZ7XY9GHZ4QJ"; // Example ULID string
 ULID ulid = ulid(ulidString);
-System.out.
-
-printf("ULID from string: %s%n",ulid);
+System.out.printf("ULID from string: %s%n",ulid);
 ```
 
 **Creating a ULID from an Existing Byte Array**
@@ -83,9 +79,7 @@ printf("ULID from string: %s%n",ulid);
 ```Java
 byte[] ulidBytes = new byte[]{ ...}; // ULID byte array
 ULID ulid = ulid(ulidBytes);
-System.out.
-
-printf("ULID from bytes: %s%n",ulid);
+System.out.printf("ULID from bytes: %s%n",ulid);
 ```
 
 ## API Reference
