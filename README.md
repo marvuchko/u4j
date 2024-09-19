@@ -2,7 +2,7 @@
     <img alt="Logo" src=".github/images/logo.png" />
 </p>
 
----
+
 
 # U4J: ULID Java Library
 
@@ -10,7 +10,7 @@
 Lexicographically Sortable Identifiers) in Java. It provides convenient static methods for creating ULIDs, either based
 on the current timestamp, a custom timestamp, or existing ULID strings/byte arrays.
 
----
+
 
 ![Licence](https://camo.githubusercontent.com/074d841936b392ebeca682f2069fd1ec1eca8a6a375cf541c6549ee11688cb51/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6c6963656e73652d6d69742d626c75652e737667)
 
@@ -22,7 +22,6 @@ on the current timestamp, a custom timestamp, or existing ULID strings/byte arra
 - Immutable, lightweight, and thread-safe design.
 - Full support for serialization and comparison.
 
----
 
 ## Getting Started
 
