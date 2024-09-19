@@ -87,8 +87,6 @@ ULID ulid = ulid(ulidBytes);
 System.out.printf("ULID from bytes: %s%n",ulid);
 ```
 
----
-
 ## API Reference
 
 **U4J Class**
@@ -120,20 +118,14 @@ The `ULID` class offers the following methods:
 * `Instant getTimestamp()` <br>
   Extracts the timestamp from the ULID.
 
----
-
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
-
----
 
 ## Contributing
 
 Contributions are welcome! Feel free to open issues or submit pull requests to enhance the functionality.
 
-
----
 
 ## Sections Explained:
 
@@ -143,5 +135,3 @@ Contributions are welcome! Feel free to open issues or submit pull requests to e
 3. **API Reference**: Documents the public methods available in `U4J` and `ULID` classes.
 4. **Unit Tests**: Briefly mentions the existence of unit tests and includes a sample test case.
 5. **Contributing**: Encourages contributions and provides contact info for support.
-
----
