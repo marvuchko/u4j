@@ -1,10 +1,12 @@
 package io.github.marvuchko;
 
+import java.nio.ByteBuffer;
 import java.security.SecureRandom;
 import java.time.Instant;
 import java.util.Arrays;
 
 import static io.github.marvuchko.ULID.isValid;
+import static java.util.Arrays.copyOf;
 
 /**
  * Utility class for encoding and decoding components of a ULID (Universally Unique Lexicographically Sortable Identifier).
@@ -25,17 +27,19 @@ final class Encodings {
     private static final SecureRandom RANDOM = new SecureRandom();
 
     /**
-     * Stores the last generated timestamp to check for conflicts during ULID generation.
+     * Stores the last generated timestamp to handle conflicts during ULID generation.
      */
     private static long lastTimestamp;
 
     /**
-     * Stores the last generated random value to check for conflicts during ULID generation.
+     * Stores the last generated random value to handle conflicts during ULID generation.
      */
     private static byte[] lastRandom;
 
     static {
         lastTimestamp = Instant.now().toEpochMilli();
+        lastRandom = new byte[Constants.RANDOM_SIZE];
+        RANDOM.nextBytes(lastRandom);
     }
 
     /**
@@ -110,29 +114,39 @@ final class Encodings {
      * @return a byte array representing the random portion of the ULID.
      */
     private static byte[] encodeRandom(long timestamp) {
-        var result = new byte[Constants.RANDOM_SIZE];
-        RANDOM.nextBytes(result);
+        var result = getRandomBytes(timestamp);
 
-        final int randomSize = Constants.RANDOM_SIZE;
-        final int maximumSteps = Constants.MAXIMUM_STEPS;
-        final int fiveBitsMask = Constants.FIVE_BITS_MASK;
-
-        int index = Constants.FIRST_INDEX;
-
-        for (int step = index; step < maximumSteps; ++step) {
-            int byteVal = result[step] & Constants.INTEGER_MASK;
-            if (step < maximumSteps / 2) {
-                result[(index++) % randomSize] = Constants.ALPHABET[(byteVal >>> 3) & fiveBitsMask];
-            } else {
-                result[(index++) % randomSize] = Constants.ALPHABET[(byteVal >>> 5) & fiveBitsMask];
-            }
-            result[(index++) % randomSize] = Constants.ALPHABET[byteVal & fiveBitsMask];
+        for (int index = Constants.FIRST_INDEX; index < Constants.RANDOM_SIZE; ++index) {
+            int byteVal = result[index] & Constants.INTEGER_MASK;
+            result[index] = Constants.ALPHABET[byteVal & Constants.FIVE_BITS_MASK];
         }
 
-        if (hasConflict(timestamp, result)) {
+        return result;
+    }
+
+    /**
+     * Generates a random byte array for use in ULID generation. This method ensures
+     * that if two ULIDs are generated with the same timestamp, the lower bits of the
+     * random component are incremented to avoid collisions. The method is synchronized
+     * to ensure thread safety when checking and modifying the last generated random value.
+     *
+     * <p>If a conflict with the previous timestamp is detected (i.e., the method is called
+     * with the same timestamp as the last generated ULID), the random bytes are incremented
+     * to avoid duplication. Specifically, the lower 64 bits are incremented. If they overflow,
+     * the higher 64 bits are incremented as well.</p>
+     *
+     * @param timestamp the current timestamp in milliseconds to check for conflicts
+     * @return a byte array containing the random component of the ULID
+     */
+    private static byte[] getRandomBytes(long timestamp) {
+        var result = new byte[Constants.RANDOM_SIZE];
+
+        if (hasConflict(timestamp)) {
             synchronized (Encodings.class) {
-                result = encodeRandom(timestamp);
+                result = handleConflict();
             }
+        } else {
+            RANDOM.nextBytes(result);
         }
 
         lastRandom = result;
@@ -142,15 +156,45 @@ final class Encodings {
     }
 
     /**
+     *  Handles the conflict during the ULID generation.
+     *
+     * <p>If a conflict with the previous timestamp is detected (i.e., the method is called
+     * with the same timestamp as the last generated ULID), the random bytes are incremented
+     * to avoid duplication. Specifically, the lower 64 bits are incremented. If they overflow,
+     * the higher 64 bits are incremented as well.</p>
+     *
+     * @return a byte array containing the random component of the ULID
+     */
+    private static byte[] handleConflict() {
+        byte[] buffer = copyOf(lastRandom, Constants.RANDOM_SIZE);
+        var byteBuffer = ByteBuffer.wrap(buffer);
+        long high = byteBuffer.getLong();
+        long low = byteBuffer.getLong();
+
+        if (low == Long.MAX_VALUE) {
+            low = 0L;
+            ++high;
+        } else {
+            ++low;
+        }
+
+        byteBuffer.clear();
+
+        byteBuffer.putLong(high);
+        byteBuffer.putLong(low);
+
+        return byteBuffer.array();
+    }
+
+    /**
      * Checks if the generated random component of the ULID conflicts with the last generated one.
-     * Conflicts occur if the timestamp and random component are identical to the previous one.
+     * Conflicts occur if the timestamp component is identical to the previous one.
      *
      * @param timestamp the current timestamp in milliseconds.
-     * @param result    the generated random value to check for conflicts.
      * @return {@code true} if a conflict exists, otherwise {@code false}.
      */
-    private static boolean hasConflict(long timestamp, byte[] result) {
-        return lastTimestamp == timestamp && Arrays.equals(lastRandom, result);
+    private static boolean hasConflict(long timestamp) {
+        return lastTimestamp == timestamp;
     }
 
     /**
@@ -161,7 +205,7 @@ final class Encodings {
      * @return a byte array representing the full ULID.
      */
     private static byte[] concat(byte[] timestamp, byte[] random) {
-        var result = Arrays.copyOf(timestamp, timestamp.length + random.length);
+        var result = copyOf(timestamp, timestamp.length + random.length);
         System.arraycopy(random, Constants.FIRST_INDEX, result, timestamp.length, random.length);
         return result;
     }
