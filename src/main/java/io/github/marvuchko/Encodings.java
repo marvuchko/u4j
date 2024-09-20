@@ -164,10 +164,10 @@ final class Encodings {
      * @return a byte array containing the random component of the ULID
      */
     private synchronized static byte[] handleConflict() {
-        byte[] buffer = copyOf(lastRandom, Constants.RANDOM_SIZE);
+        var buffer = copyOf(lastRandom, Constants.RANDOM_SIZE);
         var byteBuffer = ByteBuffer.wrap(buffer);
-        long high = byteBuffer.getLong();
-        long low = byteBuffer.getLong();
+        var high = byteBuffer.getLong();
+        var low = byteBuffer.getLong();
 
         if (low == Long.MAX_VALUE) {
             low = 0L;
