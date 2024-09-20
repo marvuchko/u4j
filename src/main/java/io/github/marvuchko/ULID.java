@@ -16,7 +16,7 @@ import static io.github.marvuchko.Encodings.encodeAndGet;
  * A ULID is 128 bits long: the first 48 bits represent the timestamp and the remaining 80 bits are random.
  * </p>
  * <p>
- * This class implements {@code Serializable} and {@code Comparable<byte[]>}.
+ * This class implements {@code Serializable} and {@code Comparable<ULID>}.
  * </p>
  *
  * @see <a href="https://github.com/ulid/spec">ULID Specification</a>
