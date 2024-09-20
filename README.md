@@ -2,7 +2,7 @@
     <img width="128" alt="Logo" src=".github/images/logo.png" />
 </p>
 
-<p style="border-top: 1px solid; margin: 32px 0;"></p>
+___
 
 # U4J: ULID Java Library
 
