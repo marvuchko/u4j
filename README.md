@@ -2,7 +2,7 @@
     <img width="128" alt="Logo" src=".github/images/logo.png" />
 </p>
 
-___
+<hr style="height: .10em">
 
 # U4J: ULID Java Library
 
