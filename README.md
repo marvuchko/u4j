@@ -3,6 +3,7 @@
 </p>
 
 ***
+![Licence](https://camo.githubusercontent.com/074d841936b392ebeca682f2069fd1ec1eca8a6a375cf541c6549ee11688cb51/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6c6963656e73652d6d69742d626c75652e737667)
 
 # U4J: ULID Java Library
 
@@ -10,7 +11,14 @@
 Lexicographically Sortable Identifiers) in Java. It provides convenient static methods for creating ULIDs, either based
 on the current timestamp, a custom timestamp, or existing ULID strings/byte arrays.
 
-![Licence](https://camo.githubusercontent.com/074d841936b392ebeca682f2069fd1ec1eca8a6a375cf541c6549ee11688cb51/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6c6963656e73652d6d69742d626c75652e737667)
+## Table of Contents
+- [Features](#Features)
+- [Getting Started](#Getting-Started)
+  - [Installation](#Installation)
+- [Usage](#Usage)
+- [API Reference](#API-Reference)
+- [License](#license)
+- [Contributing](#contributing)
 
 ## Features
 
