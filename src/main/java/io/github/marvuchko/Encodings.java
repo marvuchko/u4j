@@ -1,11 +1,11 @@
 package io.github.marvuchko;
 
-import java.nio.ByteBuffer;
 import java.security.SecureRandom;
 import java.time.Instant;
 import java.util.Arrays;
 
 import static io.github.marvuchko.ULID.isValid;
+import static io.github.marvuchko.Constants.*;
 import static java.util.Arrays.copyOf;
 
 /**
@@ -34,11 +34,11 @@ final class Encodings {
     /**
      * Stores the last generated random value to handle conflicts during ULID generation.
      */
-    private static byte[] lastRandom;
+    private static final byte[] lastRandom;
 
     static {
         lastTimestamp = Instant.now().toEpochMilli();
-        lastRandom = new byte[Constants.RANDOM_SIZE];
+        lastRandom = new byte[RANDOM_SIZE];
         RANDOM.nextBytes(lastRandom);
     }
 
@@ -69,11 +69,11 @@ final class Encodings {
      * @return a byte array representing the encoded timestamp portion of the ULID.
      */
     private static byte[] encodeTimestamp(long timestamp) {
-        var result = new byte[Constants.TIMESTAMP_SIZE];
+        var result = new byte[TIMESTAMP_SIZE];
 
-        for (int step = Constants.MAXIMUM_STEPS - 1; step >= Constants.FIRST_INDEX; --step) {
-            result[step] = Constants.ALPHABET[(int) (timestamp & Constants.FIVE_BITS_MASK)];
-            timestamp >>>= Constants.TIMESTAMP_OFFSET_IN_BITS;
+        for (int step = MAXIMUM_STEPS - 1; step >= FIRST_INDEX; --step) {
+            result[step] = ALPHABET[(int) (timestamp & FIVE_BITS_MASK)];
+            timestamp >>>= TIMESTAMP_OFFSET_IN_BITS;
         }
 
         return result;
@@ -94,10 +94,10 @@ final class Encodings {
 
         long timestampValue = 0;
 
-        for (int step = Constants.FIRST_INDEX; step < Constants.MAXIMUM_STEPS; ++step) {
+        for (int step = FIRST_INDEX; step < MAXIMUM_STEPS; ++step) {
             var ulidChar = ulidValue[step];
-            var value = Arrays.binarySearch(Constants.ALPHABET, ulidChar);
-            timestampValue = (timestampValue << Constants.TIMESTAMP_OFFSET_IN_BITS) | value;
+            var value = Arrays.binarySearch(ALPHABET, ulidChar);
+            timestampValue = (timestampValue << TIMESTAMP_OFFSET_IN_BITS) | value;
         }
 
         return Instant.ofEpochMilli(timestampValue);
@@ -114,11 +114,11 @@ final class Encodings {
      * @return a byte array representing the random portion of the ULID.
      */
     private static byte[] encodeRandom(long timestamp) {
-        var result = getRandomBytes(timestamp);
+        var randomBytes = getRandomBytes(timestamp);
+        var result = new byte[RANDOM_SIZE];
 
-        for (int index = Constants.FIRST_INDEX; index < Constants.RANDOM_SIZE; ++index) {
-            int byteVal = result[index] & Constants.INTEGER_MASK;
-            result[index] = Constants.ALPHABET[byteVal & Constants.FIVE_BITS_MASK];
+        for (int index = FIRST_INDEX; index < RANDOM_SIZE; ++index) {
+            result[index] = ALPHABET[randomBytes[index] & FIVE_BITS_MASK];
         }
 
         return result;
@@ -139,49 +139,14 @@ final class Encodings {
      * @return a byte array containing the random component of the ULID
      */
     private static byte[] getRandomBytes(long timestamp) {
-        var result = new byte[Constants.RANDOM_SIZE];
-
         if (hasConflict(timestamp)) {
-            result = handleConflict();
-        } else {
-            RANDOM.nextBytes(result);
+            RANDOM.setSeed(copyOf(lastRandom, RANDOM_SIZE));
         }
 
-        lastRandom = result;
+        RANDOM.nextBytes(lastRandom);
         lastTimestamp = timestamp;
 
-        return result;
-    }
-
-    /**
-     *  Handles the conflict during the ULID generation.
-     *
-     * <p>If a conflict with the previous timestamp is detected (i.e., the method is called
-     * with the same timestamp as the last generated ULID), the random bytes are incremented
-     * to avoid duplication. Specifically, the lower 64 bits are incremented. If they overflow,
-     * the higher 64 bits are incremented as well.</p>
-     *
-     * @return a byte array containing the random component of the ULID
-     */
-    private synchronized static byte[] handleConflict() {
-        var buffer = copyOf(lastRandom, Constants.RANDOM_SIZE);
-        var byteBuffer = ByteBuffer.wrap(buffer);
-        var high = byteBuffer.getLong();
-        var low = byteBuffer.getLong();
-
-        if (low == Long.MAX_VALUE) {
-            low = 0L;
-            ++high;
-        } else {
-            ++low;
-        }
-
-        byteBuffer.clear();
-
-        byteBuffer.putLong(high);
-        byteBuffer.putLong(low);
-
-        return byteBuffer.array();
+        return lastRandom;
     }
 
     /**
@@ -204,7 +169,7 @@ final class Encodings {
      */
     private static byte[] concat(byte[] timestamp, byte[] random) {
         var result = copyOf(timestamp, timestamp.length + random.length);
-        System.arraycopy(random, Constants.FIRST_INDEX, result, timestamp.length, random.length);
+        System.arraycopy(random, FIRST_INDEX, result, timestamp.length, random.length);
         return result;
     }
 
