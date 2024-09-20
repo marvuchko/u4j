@@ -97,7 +97,7 @@ final class Encodings {
         for (int step = Constants.FIRST_INDEX; step < Constants.MAXIMUM_STEPS; ++step) {
             var ulidChar = ulidValue[step];
             var value = Arrays.binarySearch(Constants.ALPHABET, ulidChar);
-            timestampValue = (timestampValue << Constants.MAXIMUM_STEPS / 2) | value;
+            timestampValue = (timestampValue << Constants.TIMESTAMP_OFFSET_IN_BITS) | value;
         }
 
         return Instant.ofEpochMilli(timestampValue);
