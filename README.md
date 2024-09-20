@@ -2,7 +2,7 @@
     <img width="128" alt="Logo" src=".github/images/logo.png" />
 </p>
 
-<hr style="border-top: 1px dashed;">
+<div style="border-top: 1px dashed;"></div>
 
 # U4J: ULID Java Library
 
