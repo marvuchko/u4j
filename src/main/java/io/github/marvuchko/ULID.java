@@ -21,18 +21,18 @@ import static io.github.marvuchko.Encodings.encodeAndGet;
  *
  * @see <a href="https://github.com/ulid/spec">ULID Specification</a>
  */
-public class ULID implements Serializable, Comparable<byte[]> {
+public final class ULID implements Serializable, Comparable<ULID> {
 
     /**
      * Encoded ULID value represented as a byte array.
      */
-    private byte[] value;
+    private final byte[] value;
 
     /**
-     * Protected constructor that creates a new ULID instance based on the current timestamp.
+     * Default constructor that creates a new ULID instance based on the current timestamp.
      * This method encodes the current system time in milliseconds since Unix epoch into a ULID.
      */
-    protected ULID() {
+    ULID() {
         value = encodeAndGet(Instant.now().toEpochMilli());
     }
 
@@ -83,7 +83,7 @@ public class ULID implements Serializable, Comparable<byte[]> {
      * @return a new {@code ULID} instance.
      * @throws IllegalArgumentException if the provided string is null or not of valid ULID length.
      */
-    static ULID create(String existingULID) {
+    public static ULID create(String existingULID) {
         if (isValid(existingULID)) {
             return new ULID(existingULID.getBytes());
         }
@@ -100,7 +100,7 @@ public class ULID implements Serializable, Comparable<byte[]> {
      * @return a new {@code ULID} instance.
      * @throws IllegalArgumentException if the provided byte array is null or not of valid ULID length.
      */
-    static ULID create(byte[] existingULID) {
+    public static ULID create(byte[] existingULID) {
         if (isValid(existingULID)) {
             return new ULID(existingULID);
         }
@@ -151,46 +151,12 @@ public class ULID implements Serializable, Comparable<byte[]> {
     }
 
     /**
-     * Sets the ULID value.
-     * <p>
-     * The byte array must represent a valid 26-character ULID.
-     * </p>
-     *
-     * @param value a byte array representing the ULID.
-     * @throws IllegalArgumentException if the provided byte array is null or not of valid ULID length.
-     */
-    public void setValue(byte[] value) {
-        if (isValid(value)) {
-            this.value = value;
-            return;
-        }
-        throw new IllegalArgumentException("Invalid ULID. It must be 26 characters long.");
-    }
-
-    /**
      * Returns the ULID as a string.
      *
      * @return the ULID as a {@code String}.
      */
     public String value() {
         return new String(value);
-    }
-
-    /**
-     * Sets the ULID value.
-     * <p>
-     * The string must represent a valid 26-character ULID.
-     * </p>
-     *
-     * @param value a string representing the ULID.
-     * @throws IllegalArgumentException if the provided byte array is null or not of valid ULID length.
-     */
-    public void value(String value) {
-        if (isValid(value)) {
-            this.value = value.getBytes();
-            return;
-        }
-        throw new IllegalArgumentException("Invalid ULID. It must be 26 characters long.");
     }
 
     /**
@@ -205,17 +171,17 @@ public class ULID implements Serializable, Comparable<byte[]> {
     }
 
     /**
-     * Compares this ULID with another byte array.
+     * Compares this ULID with another ULID.
      * <p>
      * The comparison is done lexicographically based on the byte arrays.
      * </p>
      *
-     * @param bytes the byte array to compare this ULID to.
-     * @return a negative integer, zero, or a positive integer as this ULID is less than, equal to, or greater than the specified byte array.
+     * @param other the ULID to compare this ULID to.
+     * @return a negative integer, zero, or a positive integer as this ULID is less than, equal to, or greater than the specified ULID.
      */
     @Override
-    public int compareTo(byte[] bytes) {
-        return Arrays.compare(value, bytes);
+    public int compareTo(ULID other) {
+        return Arrays.compare(value, other.value);
     }
 
     /**
@@ -238,7 +204,9 @@ public class ULID implements Serializable, Comparable<byte[]> {
         if (!Objects.equals(getClass(), other.getClass())) {
             return false;
         }
-        ULID ulid = (ULID) other;
+        if (!(other instanceof ULID ulid)) {
+            return false;
+        }
         return Objects.deepEquals(value, ulid.value);
     }
 
