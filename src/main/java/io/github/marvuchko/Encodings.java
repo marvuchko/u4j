@@ -142,9 +142,7 @@ final class Encodings {
         var result = new byte[Constants.RANDOM_SIZE];
 
         if (hasConflict(timestamp)) {
-            synchronized (Encodings.class) {
-                result = handleConflict();
-            }
+            result = handleConflict();
         } else {
             RANDOM.nextBytes(result);
         }
@@ -165,7 +163,7 @@ final class Encodings {
      *
      * @return a byte array containing the random component of the ULID
      */
-    private static byte[] handleConflict() {
+    private synchronized static byte[] handleConflict() {
         byte[] buffer = copyOf(lastRandom, Constants.RANDOM_SIZE);
         var byteBuffer = ByteBuffer.wrap(buffer);
         long high = byteBuffer.getLong();
