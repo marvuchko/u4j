@@ -1,5 +1,5 @@
 <p align="center">
-    <img alt="Logo" src=".github/images/logo.png" />
+    <img width="128" alt="Logo" src=".github/images/logo.png" />
 </p>
 
 # U4J: ULID Java Library
