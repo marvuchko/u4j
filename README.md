@@ -2,6 +2,8 @@
     <img width="128" alt="Logo" src=".github/images/logo.png" />
 </p>
 
+<p style="border-top: 1px solid; margin: 32px 0;"></p>
+
 # U4J: ULID Java Library
 
 **U4J** _(ULIDs for Java)_ is a lightweight utility library for generating and managing ULIDs (Universally Unique
@@ -63,9 +65,7 @@ You can create a ULID based on a specific timestamp:
 ```Java
 long timestamp = System.currentTimeMillis(); // or any other timestamp in milliseconds
 ULID ulid = ulid(timestamp);
-System.out.
-
-printf("ULID from timestamp: %s%n",ulid);
+System.out.printf("ULID from timestamp: %s%n",ulid);
 ```
 
 **Creating a ULID from an Existing String**
@@ -73,9 +73,7 @@ printf("ULID from timestamp: %s%n",ulid);
 ```Java
 String ulidString = "01F8MECHZX3TBDSZ7XY9GHZ4QJ"; // Example ULID string
 ULID ulid = ulid(ulidString);
-System.out.
-
-printf("ULID from string: %s%n",ulid);
+System.out.printf("ULID from string: %s%n",ulid);
 ```
 
 **Creating a ULID from an Existing Byte Array**
@@ -83,9 +81,7 @@ printf("ULID from string: %s%n",ulid);
 ```Java
 byte[] ulidBytes = new byte[]{ ...}; // ULID byte array
 ULID ulid = ulid(ulidBytes);
-System.out.
-
-printf("ULID from bytes: %s%n",ulid);
+System.out.printf("ULID from bytes: %s%n",ulid);
 ```
 
 ## API Reference
@@ -110,7 +106,7 @@ The `U4J` class provides the following static methods:
 
 The `ULID` class offers the following methods:
 
-* `String asString()` <br>
+* `String value()` <br>
   Returns the string representation of the ULID.
 
 * `byte[] getValue()` <br>
