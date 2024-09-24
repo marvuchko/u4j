@@ -66,7 +66,6 @@ public class Main {
         System.out.println(ulid); // 01J867H5SF1P2H7S846Q2K1R1M
     }
 }
-
 ```
 
 **Creating a ULID from a Specific Timestamp**
@@ -110,17 +109,11 @@ The `U4J` class provides the following static methods:
 * `ULID ulid(String existingULID)` <br>
   Creates a ULID from an existing ULID string.
 
-* `ULID ulid(byte[] existingULID)` <br>
-  Creates a ULID from an existing byte array.
-
 **ULID Class**
 
 The `ULID` class offers the following methods:
 
-* `String value()` <br>
-  Returns the string representation of the ULID.
-
-* `byte[] getValue()` <br>
+* `String getValue()` <br>
   Returns the byte array representation of the ULID.
 
 * `Instant getTimestamp()` <br>

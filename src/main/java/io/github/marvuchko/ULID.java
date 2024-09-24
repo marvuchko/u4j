@@ -11,7 +11,6 @@ import static io.github.marvuchko.Constants.*;
 /**
  * Represents a ULID (Universally Unique Lexicographically Sortable Identifier),
  * which is a 26-character string composed of a timestamp and a random component.
- * This class provides functionality to create, encode, and decode ULIDs.
  * <p>
  * A ULID is 128 bits long: the first 48 bits represent the timestamp and the remaining 80 bits are random.
  * </p>
