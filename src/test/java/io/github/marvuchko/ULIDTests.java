@@ -92,7 +92,7 @@ class ULIDTests {
 
     @Test
     void testDefaultConstructorCreatesValidULID() {
-        ULID ulid = new ULID();
+        ULID ulid = ulid();
 
         assertNotNull(ulid);
         assertNotNull(ulid.getValue());

@@ -16,7 +16,7 @@ import static io.github.marvuchko.Constants.*;
  * A ULID is 128 bits long: the first 48 bits represent the timestamp and the remaining 80 bits are random.
  * </p>
  * <p>
- * This class implements {@code Serializable} and {@code Comparable<ULID>}.
+ * This class implements {@code Comparable<ULID>}.
  * </p>
  *
  * @see <a href="https://github.com/ulid/spec">ULID Specification</a>
@@ -29,14 +29,6 @@ public final class ULID implements Comparable<ULID> {
     private final byte[] value;
 
     /**
-     * Protected constructor that creates a new ULID instance based on the current timestamp.
-     * This method encodes the current system time in milliseconds since Unix epoch into a ULID.
-     */
-    ULID() {
-        value = encodeAndGet(Instant.now().toEpochMilli());
-    }
-
-    /**
      * Private constructor that initializes a ULID from the given byte array.
      * <p>
      * The byte array must represent a valid 26-character ULID.
@@ -46,11 +38,7 @@ public final class ULID implements Comparable<ULID> {
      * @throws IllegalArgumentException if the provided byte array is null or not of valid ULID length.
      */
     private ULID(byte[] value) {
-        if (isValid(value)) {
-            this.value = value;
-            return;
-        }
-        throw new IllegalArgumentException("Invalid ULID. It must be 26 characters long.");
+        this.value = value;
     }
 
     /**
