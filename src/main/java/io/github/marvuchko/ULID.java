@@ -35,7 +35,6 @@ public final class ULID implements Comparable<ULID> {
      * </p>
      *
      * @param value a byte array representing the ULID.
-     * @throws IllegalArgumentException if the provided byte array is null or not of valid ULID length.
      */
     private ULID(byte[] value) {
         this.value = value;
