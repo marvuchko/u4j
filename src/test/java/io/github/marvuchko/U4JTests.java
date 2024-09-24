@@ -27,16 +27,6 @@ class U4JTests {
     }
 
     @Test
-    void testUlidWithByteArrayCreatesInstance() {
-        ULID originalUlid = ulid();
-        byte[] value = originalUlid.getValue();
-        ULID ulidFromBytes = ulid(value);
-
-        assertNotNull(ulidFromBytes);
-        assertArrayEquals(value, ulidFromBytes.getValue(), "ULID should match the original value");
-    }
-
-    @Test
     void testUlidWithStringCreatesInstance() {
         ULID originalUlid = ulid();
         String ulidString = originalUlid.toString();

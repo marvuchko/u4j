@@ -96,7 +96,7 @@ class ULIDTests {
 
         assertNotNull(ulid);
         assertNotNull(ulid.getValue());
-        assertEquals(Constants.ULID_LENGTH, ulid.getValue().length, "ULID should be of valid length");
+        assertEquals(Constants.ULID_LENGTH, ulid.getValue().length(), "ULID should be of valid length");
     }
 
     @Test
@@ -106,16 +106,6 @@ class ULIDTests {
 
         assertNotNull(ulid);
         assertEquals(timestamp, ulid.getTimestamp().toEpochMilli(), "Timestamp should match the input");
-    }
-
-    @Test
-    void testConstructorWithByteArrayCreatesValidULID() {
-        ULID originalUlid = ULID.create();
-        byte[] value = originalUlid.getValue();
-        ULID ulidFromBytes = ULID.create(value);
-
-        assertNotNull(ulidFromBytes);
-        assertArrayEquals(value, ulidFromBytes.getValue(), "ULID should match the original value");
     }
 
     @Test

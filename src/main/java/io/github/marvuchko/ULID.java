@@ -1,6 +1,5 @@
 package io.github.marvuchko;
 
-import java.io.Serializable;
 import java.time.Instant;
 import java.util.Arrays;
 import java.util.Objects;
@@ -22,7 +21,7 @@ import static io.github.marvuchko.Constants.*;
  *
  * @see <a href="https://github.com/ulid/spec">ULID Specification</a>
  */
-public final class ULID implements Serializable, Comparable<ULID> {
+public final class ULID implements Comparable<ULID> {
 
     /**
      * Encoded ULID value represented as a byte array.
@@ -30,7 +29,7 @@ public final class ULID implements Serializable, Comparable<ULID> {
     private final byte[] value;
 
     /**
-     * Default constructor that creates a new ULID instance based on the current timestamp.
+     * Protected constructor that creates a new ULID instance based on the current timestamp.
      * This method encodes the current system time in milliseconds since Unix epoch into a ULID.
      */
     ULID() {
@@ -84,28 +83,28 @@ public final class ULID implements Serializable, Comparable<ULID> {
      * @return a new {@code ULID} instance.
      * @throws IllegalArgumentException if the provided string is null or not of valid ULID length.
      */
-    public static ULID create(String existingULID) {
+    static ULID create(String existingULID) {
         if (isValid(existingULID)) {
-            return new ULID(existingULID.getBytes());
+            return new ULID(existingULID.toUpperCase().getBytes());
         }
         throw new IllegalArgumentException("Invalid ULID. It must be 26 characters long.");
     }
 
     /**
-     * Creates a new ULID from an existing byte array.
+     * Validates if the provided ULID byte array conforms to the ULID format.
      * <p>
-     * The byte array must represent a valid 26-character ULID.
+     * This method checks if the byte array has a length of 26 and if its content matches the ULID format.
+     * It converts the byte array to a string and validates it against the regular expression for ULIDs.
      * </p>
      *
-     * @param existingULID a byte array representing the ULID.
-     * @return a new {@code ULID} instance.
-     * @throws IllegalArgumentException if the provided byte array is null or not of valid ULID length.
+     * @param existingULID the ULID byte array to validate.
+     * @return {@code true} if the byte array is a valid ULID, {@code false} otherwise.
      */
-    public static ULID create(byte[] existingULID) {
-        if (isValid(existingULID)) {
-            return new ULID(existingULID);
+    static boolean isValid(byte[] existingULID) {
+        if (existingULID == null || existingULID.length != ULID_LENGTH) {
+            return false;
         }
-        throw new IllegalArgumentException("Invalid ULID. It must be 26 characters long.");
+        return new String(existingULID).toUpperCase().matches(VALID_ULID_REGEX);
     }
 
     /**
@@ -126,37 +125,11 @@ public final class ULID implements Serializable, Comparable<ULID> {
     }
 
     /**
-     * Validates if the provided ULID byte array conforms to the ULID format.
-     * <p>
-     * This method checks if the byte array has a length of 26 and if its content matches the ULID format.
-     * It converts the byte array to a string and validates it against the regular expression for ULIDs.
-     * </p>
-     *
-     * @param existingULID the ULID byte array to validate.
-     * @return {@code true} if the byte array is a valid ULID, {@code false} otherwise.
-     */
-    public static boolean isValid(byte[] existingULID) {
-        if (existingULID == null || existingULID.length != ULID_LENGTH) {
-            return false;
-        }
-        return new String(existingULID).toUpperCase().matches(VALID_ULID_REGEX);
-    }
-
-    /**
-     * Returns the ULID value as a byte array.
-     *
-     * @return a byte array representing the ULID.
-     */
-    public byte[] getValue() {
-        return value;
-    }
-
-    /**
      * Returns the ULID as a string.
      *
      * @return the ULID as a {@code String}.
      */
-    public String value() {
+    public String getValue() {
         return new String(value);
     }
 
@@ -231,6 +204,6 @@ public final class ULID implements Serializable, Comparable<ULID> {
      */
     @Override
     public String toString() {
-        return value();
+        return getValue();
     }
 }

@@ -44,12 +44,6 @@ final class Constants {
     static final int RANDOM_SIZE = 16;
 
     /**
-     * A mask used to extract the last 8 bits (1 byte) from an integer.
-     * This value is used during the encoding of random bytes into the ULID alphabet.
-     */
-    static final int INTEGER_MASK = 0xFF;
-
-    /**
      * The starting index for various loops and array operations, typically 0.
      */
     static final int FIRST_INDEX = 0;

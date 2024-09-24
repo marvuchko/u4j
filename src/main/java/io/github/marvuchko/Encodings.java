@@ -57,7 +57,7 @@ final class Encodings {
      * @param timestamp the timestamp in milliseconds since Unix epoch.
      * @return a byte array representing the encoded ULID.
      */
-    static byte[] encodeAndGet(long timestamp) {
+    static synchronized byte[] encodeAndGet(long timestamp) {
         return concat(encodeTimestamp(timestamp), encodeRandom(timestamp));
     }
 
@@ -92,7 +92,7 @@ final class Encodings {
             throw new IllegalArgumentException("Invalid ULID. It must be 26 characters long.");
         }
 
-        long timestampValue = 0;
+        long timestampValue = 0L;
 
         for (int step = FIRST_INDEX; step < MAXIMUM_STEPS; ++step) {
             var ulidChar = ulidValue[step];
@@ -154,7 +154,7 @@ final class Encodings {
      * When the lower bits of the random value overflow, the higher bits are incremented.
      * </p>
      */
-    private synchronized static void incrementLastRandom() {
+    private static void incrementLastRandom() {
         for (int index = RANDOM_SIZE - 1; index >= FIRST_INDEX; --index) {
             int byteValue = lastRandom[index] & FIVE_BITS_MASK;
             ++byteValue;

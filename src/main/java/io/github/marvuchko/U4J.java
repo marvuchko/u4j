@@ -47,19 +47,6 @@ public final class U4J {
     }
 
     /**
-     * Creates a new ULID from an existing byte array.
-     * <p>
-     * This method takes a byte array representing an existing ULID and converts it into a {@link ULID} instance.
-     * </p>
-     *
-     * @param existingULID a byte array representing an existing ULID.
-     * @return a new {@link ULID} instance corresponding to the provided byte array.
-     */
-    public static ULID ulid(byte[] existingULID) {
-        return ULID.create(existingULID);
-    }
-
-    /**
      * Creates a new ULID from an existing string.
      * <p>
      * This method takes a string representation of an existing ULID and converts it into a {@link ULID} instance.
