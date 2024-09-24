@@ -1,7 +1,7 @@
 <hr style="background: #111;">
 
 <p align="center">
-    <img width="128" alt="Logo" src=".github/images/logo.png" />
+    <img width="192" alt="Logo" src=".github/images/logo-v2.png" />
 </p>
 
 <hr style="background: #111;">
