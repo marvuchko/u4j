@@ -14,7 +14,7 @@
 
 **U4J** _(ULIDs for Java)_ is a lightweight utility library for generating and managing ULIDs (Universally Unique
 Lexicographically Sortable Identifiers) in Java. It provides convenient static methods for creating ULIDs, either based
-on the current timestamp, a custom timestamp, or existing ULID strings/byte arrays.
+on the current timestamp, a custom timestamp, or existing ULID strings.
 
 ## Table of Contents
 - [Features](#Features)
@@ -31,7 +31,6 @@ on the current timestamp, a custom timestamp, or existing ULID strings/byte arra
 - Create ULIDs from specific timestamps (in milliseconds since the Unix epoch).
 - Support for creating ULIDs from existing byte arrays or strings.
 - Immutable, lightweight, and thread-safe design.
-- Full support for serialization and comparison.
 
 ## Getting Started
 
@@ -64,7 +63,6 @@ import static io.github.marvuchko.U4J.ulid;
 
 public class Main {
     public static void main(String[] args) {
-        
         // ULID generated based on the current timestamp.
         var ulid = ulid();
         
@@ -79,7 +77,8 @@ public class Main {
 You can create a ULID based on a specific timestamp:
 
 ```Java
-long timestamp = System.currentTimeMillis(); // or any other timestamp in milliseconds
+// System.currentTimeMillis(), or any other timestamp in milliseconds
+long timestamp = System.currentTimeMillis();
 ULID ulid = ulid(timestamp);
 System.out.printf("ULID from timestamp: %s%n",ulid);
 ```
@@ -87,17 +86,10 @@ System.out.printf("ULID from timestamp: %s%n",ulid);
 **Creating a ULID from an Existing String**
 
 ```Java
-String ulidString = "01F8MECHZX3TBDSZ7XY9GHZ4QJ"; // Example ULID string
+// Example ULID string
+String ulidString = "01F8MECHZX3TBDSZ7XY9GHZ4QJ";
 ULID ulid = ulid(ulidString);
 System.out.printf("ULID from string: %s%n",ulid);
-```
-
-**Creating a ULID from an Existing Byte Array**
-
-```Java
-byte[] ulidBytes = new byte[]{ ...}; // ULID byte array
-ULID ulid = ulid(ulidBytes);
-System.out.printf("ULID from bytes: %s%n",ulid);
 ```
 
 ## API Reference
@@ -136,7 +128,7 @@ Contributions are welcome! Feel free to open issues or submit pull requests to e
 ## Sections Explained:
 
 1. **Installation**: Provides instructions for adding the library to a project via Maven or Gradle.
-2. **Usage**: Shows examples of generating ULIDs using the `U4J` class, including from a timestamp, byte array, or
+2. **Usage**: Shows examples of generating ULIDs using the `U4J` class, including from a timestamp, or
    string.
 3. **API Reference**: Documents the public methods available in `U4J` and `ULID` classes.
 4. **Unit Tests**: Briefly mentions the existence of unit tests and includes a sample test case.
