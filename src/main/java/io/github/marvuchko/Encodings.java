@@ -132,21 +132,38 @@ final class Encodings {
      *
      * <p>If a conflict with the previous timestamp is detected (i.e., the method is called
      * with the same timestamp as the last generated ULID), the random bytes are incremented
-     * to avoid duplication. Specifically, the lower 64 bits are incremented. If they overflow,
-     * the higher 64 bits are incremented as well.</p>
+     * to avoid duplication. Specifically, the lower bits are incremented. If they overflow,
+     * the higher bits are incremented as well.</p>
      *
-     * @param timestamp the current timestamp in milliseconds to check for conflicts
-     * @return a byte array containing the random component of the ULID
+     * @param timestamp the current timestamp in milliseconds to check for conflicts.
+     * @return a byte array containing the random component of the ULID.
      */
     private static byte[] getRandomBytes(long timestamp) {
-        if (hasConflict(timestamp)) {
-            RANDOM.setSeed(copyOf(lastRandom, RANDOM_SIZE));
+        if (!hasConflict(timestamp)) {
+            RANDOM.nextBytes(lastRandom);
+        } else {
+            incrementLastRandom();
         }
-
-        RANDOM.nextBytes(lastRandom);
         lastTimestamp = timestamp;
-
         return lastRandom;
+    }
+
+    /**
+     * Increments the last generated random byte array to handle conflicts during ULID generation.
+     * <p>
+     * When the lower bits of the random value overflow, the higher bits are incremented.
+     * </p>
+     */
+    private synchronized static void incrementLastRandom() {
+        for (int index = RANDOM_SIZE - 1; index >= FIRST_INDEX; --index) {
+            int byteValue = lastRandom[index] & FIVE_BITS_MASK;
+            ++byteValue;
+            if (byteValue < FIVE_BITS_MASK) {
+                lastRandom[index] = (byte) byteValue;
+                break;
+            }
+            lastRandom[index] = 0;
+        }
     }
 
     /**

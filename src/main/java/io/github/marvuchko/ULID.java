@@ -7,6 +7,7 @@ import java.util.Objects;
 
 import static io.github.marvuchko.Encodings.decodeTimestamp;
 import static io.github.marvuchko.Encodings.encodeAndGet;
+import static io.github.marvuchko.Constants.*;
 
 /**
  * Represents a ULID (Universally Unique Lexicographically Sortable Identifier),
@@ -118,10 +119,10 @@ public final class ULID implements Serializable, Comparable<ULID> {
      * @return {@code true} if the string is a valid ULID, {@code false} otherwise.
      */
     public static boolean isValid(String existingULID) {
-        if (existingULID == null || existingULID.length() != Constants.ULID_LENGTH) {
+        if (existingULID == null || existingULID.length() != ULID_LENGTH) {
             return false;
         }
-        return existingULID.matches(Constants.VALID_ULID_REGEX);
+        return existingULID.toUpperCase().matches(VALID_ULID_REGEX);
     }
 
     /**
@@ -135,10 +136,10 @@ public final class ULID implements Serializable, Comparable<ULID> {
      * @return {@code true} if the byte array is a valid ULID, {@code false} otherwise.
      */
     public static boolean isValid(byte[] existingULID) {
-        if (existingULID == null || existingULID.length != Constants.ULID_LENGTH) {
+        if (existingULID == null || existingULID.length != ULID_LENGTH) {
             return false;
         }
-        return new String(existingULID).matches(Constants.VALID_ULID_REGEX);
+        return new String(existingULID).toUpperCase().matches(VALID_ULID_REGEX);
     }
 
     /**
