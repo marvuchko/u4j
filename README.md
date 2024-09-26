@@ -1,5 +1,3 @@
-<hr style="background: #111;">
-
 <p align="center">
     <img width="256" alt="Logo" src=".github/images/logo-v2.png" />
 </p>
