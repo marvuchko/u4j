@@ -1,12 +1,11 @@
+<hr style="background: #111;">
+
 <p align="center">
     <img width="256" alt="Logo" src=".github/images/logo-v2.png" />
 </p>
 
-<p style="background: #d1d9e0; padding: 16px" align="center">
-  <img alt="licence" src="https://img.shields.io/badge/License-MIT-blue.svg">
-  <img alt="version" src="https://img.shields.io/badge/version-1.0.0-blue.svg">
-  <img alt="build" src="https://img.shields.io/badge/build-passing-green.svg">
-  <img alt="coverage" src="https://img.shields.io/badge/code_coverage-100%25-green.svg">
+<p align="center">
+  <img alt="badges" src="./.github/images/badges.svg" />
 </p>
 
 
