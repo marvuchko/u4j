@@ -28,7 +28,7 @@ on the current timestamp, a custom timestamp, or existing ULID strings.
 
 - Generate ULIDs using the current timestamp.
 - Create ULIDs from specific timestamps (in milliseconds since the Unix epoch).
-- Support for creating ULIDs from existing byte arrays or strings.
+- Support for creating ULIDs from existing strings.
 - Immutable, lightweight, and thread-safe design.
 
 ## Getting Started
@@ -79,7 +79,8 @@ You can create a ULID based on a specific timestamp:
 // System.currentTimeMillis(), or any other timestamp in milliseconds
 long timestamp = System.currentTimeMillis();
 ULID ulid = ulid(timestamp);
-System.out.printf("ULID from timestamp: %s%n",ulid);
+System.out.printf("ULID from timestamp: %s%n", ulid);
+// ULID from timestamp: 01J867H5SF1P2H7S846Q2K1R1M
 ```
 
 **Creating a ULID from an Existing String**
@@ -88,7 +89,19 @@ System.out.printf("ULID from timestamp: %s%n",ulid);
 // Example ULID string
 String ulidString = "01F8MECHZX3TBDSZ7XY9GHZ4QJ";
 ULID ulid = ulid(ulidString);
-System.out.printf("ULID from string: %s%n",ulid);
+System.out.printf("ULID from string: %s%n", ulid);
+// ULID from string: 01F8MECHZX3TBDSZ7XY9GHZ4QJ
+```
+
+**Getting a Timestamp from an Existing ULID**
+
+```Java
+// Example ULID string
+String ulidString = "01F8MECHZX3TBDSZ7XY9GHZ4QJ";
+ULID ulid = ulid(ulidString);
+Instant timestamp = ulid.getTimestamp();
+System.out.printf("Timestamp from existing ulid: %s%n", timestamp);
+// Timestamp from existing ulid: 2021-06-20T10:10:18.237Z
 ```
 
 ## API Reference
@@ -111,7 +124,7 @@ The `U4J` class provides the following static methods:
 The `ULID` class offers the following methods:
 
 * `String getValue()` <br>
-  Returns the byte array representation of the ULID.
+  Returns the string representation of the ULID.
 
 * `Instant getTimestamp()` <br>
   Extracts the timestamp from the ULID.
