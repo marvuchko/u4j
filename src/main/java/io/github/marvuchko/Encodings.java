@@ -4,7 +4,6 @@ import java.security.SecureRandom;
 import java.time.Instant;
 import java.util.Arrays;
 
-import static io.github.marvuchko.ULID.isValid;
 import static io.github.marvuchko.Constants.*;
 import static java.util.Arrays.copyOf;
 
@@ -85,13 +84,8 @@ final class Encodings {
      *
      * @param ulidValue a ULID byte array.
      * @return the decoded timestamp as an {@link Instant}.
-     * @throws IllegalArgumentException if the ULID is invalid (must be 26 characters long).
      */
     static Instant decodeTimestamp(byte[] ulidValue) {
-        if (!isValid(ulidValue)) {
-            throw new IllegalArgumentException("Invalid ULID. It must be 26 characters long.");
-        }
-
         long timestampValue = 0L;
 
         for (int step = FIRST_INDEX; step < MAXIMUM_STEPS; ++step) {

@@ -1,5 +1,6 @@
 package io.github.marvuchko;
 
+import java.nio.charset.StandardCharsets;
 import java.time.Instant;
 import java.util.Arrays;
 import java.util.Objects;
@@ -23,9 +24,9 @@ import static io.github.marvuchko.Constants.*;
 public final class ULID implements Comparable<ULID> {
 
     /**
-     * Encoded ULID value represented as a byte array.
+     * Encoded ULID value represented as a string.
      */
-    private final byte[] value;
+    private final String value;
 
     /**
      * Private constructor that initializes a ULID from the given byte array.
@@ -36,6 +37,18 @@ public final class ULID implements Comparable<ULID> {
      * @param value a byte array representing the ULID.
      */
     private ULID(byte[] value) {
+        this.value = new String(value, StandardCharsets.UTF_8);
+    }
+
+    /**
+     * Private constructor that initializes a ULID from the given string.
+     * <p>
+     * The string must represent a valid 26-character ULID.
+     * </p>
+     *
+     * @param value a string representing the ULID.
+     */
+    private ULID(String value) {
         this.value = value;
     }
 
@@ -71,26 +84,9 @@ public final class ULID implements Comparable<ULID> {
      */
     static ULID create(String existingULID) {
         if (isValid(existingULID)) {
-            return new ULID(existingULID.toUpperCase().getBytes());
+            return new ULID(existingULID.toUpperCase());
         }
         throw new IllegalArgumentException("Invalid ULID. It must be 26 characters long.");
-    }
-
-    /**
-     * Validates if the provided ULID byte array conforms to the ULID format.
-     * <p>
-     * This method checks if the byte array has a length of 26 and if its content matches the ULID format.
-     * It converts the byte array to a string and validates it against the regular expression for ULIDs.
-     * </p>
-     *
-     * @param existingULID the ULID byte array to validate.
-     * @return {@code true} if the byte array is a valid ULID, {@code false} otherwise.
-     */
-    static boolean isValid(byte[] existingULID) {
-        if (existingULID == null || existingULID.length != ULID_LENGTH) {
-            return false;
-        }
-        return new String(existingULID).toUpperCase().matches(VALID_ULID_REGEX);
     }
 
     /**
@@ -116,7 +112,7 @@ public final class ULID implements Comparable<ULID> {
      * @return the ULID as a {@code String}.
      */
     public String getValue() {
-        return new String(value);
+        return value;
     }
 
     /**
@@ -127,13 +123,13 @@ public final class ULID implements Comparable<ULID> {
      * @return an {@code Instant} representing the timestamp of the ULID.
      */
     public Instant getTimestamp() {
-        return decodeTimestamp(value);
+        return decodeTimestamp(value.getBytes());
     }
 
     /**
      * Compares this ULID with another ULID.
      * <p>
-     * The comparison is done lexicographically based on the byte arrays.
+     * The comparison is done lexicographically based on the character sequences.
      * </p>
      *
      * @param other the ULID to compare this ULID to.
@@ -141,13 +137,13 @@ public final class ULID implements Comparable<ULID> {
      */
     @Override
     public int compareTo(ULID other) {
-        return Arrays.compare(value, other.value);
+        return CharSequence.compare(value, other.value);
     }
 
     /**
      * Checks if this ULID is equal to another object.
      * <p>
-     * Two ULIDs are considered equal if their byte values are identical.
+     * Two ULIDs are considered equal if their string values are identical.
      * </p>
      *
      * @param other the object to compare to.
@@ -173,14 +169,14 @@ public final class ULID implements Comparable<ULID> {
     /**
      * Returns the hash code value for this ULID.
      * <p>
-     * The hash code is computed based on the byte array of the ULID.
+     * The hash code is computed based on the byte array representation of the ULID.
      * </p>
      *
      * @return the hash code for this ULID.
      */
     @Override
     public int hashCode() {
-        return Arrays.hashCode(value);
+        return Arrays.hashCode(value.getBytes());
     }
 
     /**
