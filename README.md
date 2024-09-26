@@ -3,7 +3,9 @@
 </p>
 
 <p align="center">
-  <img alt="badges" src="./.github/images/badges.svg" />
+  <a href="#">
+    <img alt="badges" src="./.github/images/badges.svg" />
+  </a>
 </p>
 
 
