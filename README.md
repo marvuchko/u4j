@@ -6,12 +6,12 @@
 
 <hr style="background: #111;">
 
-<div style="text-align: center;">
+<p align="center">
   <img alt="licence" src="https://img.shields.io/badge/License-MIT-blue.svg">
   <img alt="version" src="https://img.shields.io/badge/version-1.0.0-blue.svg">
   <img alt="build" src="https://img.shields.io/badge/build-passing-green.svg">
   <img alt="coverage" src="https://img.shields.io/badge/code_coverage-100%25-green.svg">
-</div>
+</p>
 
 # U4J: ULID Java Library
 
