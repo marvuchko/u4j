@@ -7,7 +7,12 @@
 <hr style="background: #111;">
 
 <p align="center">
-  <img alt="licence" src="https://camo.githubusercontent.com/074d841936b392ebeca682f2069fd1ec1eca8a6a375cf541c6549ee11688cb51/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f6c6963656e73652d6d69742d626c75652e737667">
+  <a href="MIT-LICENCE.txt">
+    <img alt="licence" src="https://img.shields.io/badge/License-MIT-blue.svg">
+  </a>
+  <img alt="version" src="https://img.shields.io/badge/version-1.0.0-blue.svg">
+  <img alt="build" src="https://img.shields.io/badge/build-passing-green.svg">
+  <img alt="coverage" src="https://img.shields.io/badge/code_coverage-100%25-green.svg">
 </p>
 
 # U4J: ULID Java Library
