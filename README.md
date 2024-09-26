@@ -12,6 +12,9 @@
   <img alt="build" src="https://img.shields.io/badge/build-passing-green.svg">
   <img alt="coverage" src="https://img.shields.io/badge/code_coverage-100%25-green.svg">
 </p>
+<hr style="background: #111;">
+
+<br/><br/>
 
 # U4J: ULID Java Library
 
