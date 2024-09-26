@@ -7,7 +7,7 @@
 <hr style="background: #111;">
 
 <p align="center">
-  <a href="MIT-LICENCE.txt">
+  <a href="./MIT-LICENCE.txt">
     <img alt="licence" src="https://img.shields.io/badge/License-MIT-blue.svg">
   </a>
   <img alt="version" src="https://img.shields.io/badge/version-1.0.0-blue.svg">
