@@ -14,8 +14,6 @@
 </p>
 <hr style="background: #111;">
 
-<br/><br/>
-
 # U4J: ULID Java Library
 
 **U4J** _(ULIDs for Java)_ is a lightweight utility library for generating and managing ULIDs (Universally Unique
