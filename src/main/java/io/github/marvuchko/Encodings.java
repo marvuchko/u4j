@@ -22,9 +22,9 @@ import static java.util.Arrays.copyOf;
 final class Encodings {
 
     /**
-     * The {@link SecureRandom} instance used to generate random byte arrays for ULIDs.
+     * The {@link ThreadLocal} {@link SecureRandom} instance used to generate random byte arrays for ULIDs.
      */
-    private static final SecureRandom RANDOM = new SecureRandom();
+    private static final ThreadLocal<SecureRandom> RANDOM = ThreadLocal.withInitial(SecureRandom::new);
 
     /**
      * Stores the last generated timestamp to handle conflicts during ULID generation.
@@ -39,7 +39,7 @@ final class Encodings {
     static {
         lastTimestamp = new AtomicLong(Instant.now().toEpochMilli());
         lastRandom = new byte[RANDOM_SIZE];
-        RANDOM.nextBytes(lastRandom);
+        RANDOM.get().nextBytes(lastRandom);
     }
 
     /**
@@ -135,7 +135,7 @@ final class Encodings {
      */
     private static byte[] getRandomBytes(long timestamp) {
         if (!hasConflict(timestamp)) {
-            RANDOM.nextBytes(lastRandom);
+            RANDOM.get().nextBytes(lastRandom);
             lastTimestamp.set(timestamp);
         } else {
             synchronized (lastRandom) {
