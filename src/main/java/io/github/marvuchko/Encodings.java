@@ -3,6 +3,7 @@ package io.github.marvuchko;
 import java.security.SecureRandom;
 import java.time.Instant;
 import java.util.Arrays;
+import java.util.concurrent.atomic.AtomicLong;
 
 import static io.github.marvuchko.Constants.*;
 import static java.util.Arrays.copyOf;
@@ -28,7 +29,7 @@ final class Encodings {
     /**
      * Stores the last generated timestamp to handle conflicts during ULID generation.
      */
-    private static long lastTimestamp;
+    private static final AtomicLong lastTimestamp;
 
     /**
      * Stores the last generated random value to handle conflicts during ULID generation.
@@ -36,7 +37,7 @@ final class Encodings {
     private static final byte[] lastRandom;
 
     static {
-        lastTimestamp = Instant.now().toEpochMilli();
+        lastTimestamp = new AtomicLong(Instant.now().toEpochMilli());
         lastRandom = new byte[RANDOM_SIZE];
         RANDOM.nextBytes(lastRandom);
     }
@@ -56,7 +57,7 @@ final class Encodings {
      * @param timestamp the timestamp in milliseconds since Unix epoch.
      * @return a byte array representing the encoded ULID.
      */
-    static synchronized byte[] encodeAndGet(long timestamp) {
+    static byte[] encodeAndGet(long timestamp) {
         return concat(encodeTimestamp(timestamp), encodeRandom(timestamp));
     }
 
@@ -135,10 +136,12 @@ final class Encodings {
     private static byte[] getRandomBytes(long timestamp) {
         if (!hasConflict(timestamp)) {
             RANDOM.nextBytes(lastRandom);
+            lastTimestamp.set(timestamp);
         } else {
-            incrementLastRandom();
+            synchronized (lastRandom) {
+                incrementLastRandom();
+            }
         }
-        lastTimestamp = timestamp;
         return lastRandom;
     }
 
@@ -168,7 +171,8 @@ final class Encodings {
      * @return {@code true} if a conflict exists, otherwise {@code false}.
      */
     private static boolean hasConflict(long timestamp) {
-        return lastTimestamp == timestamp;
+        long lastTime = lastTimestamp.get();
+        return lastTime == timestamp;
     }
 
     /**
