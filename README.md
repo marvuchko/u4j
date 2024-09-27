@@ -76,32 +76,32 @@ public class Main {
 You can create a ULID based on a specific timestamp:
 
 ```Java
-// System.currentTimeMillis(), or any other timestamp in milliseconds
-long timestamp = System.currentTimeMillis();
+// Any UTC timestamp in milliseconds
+long timestamp = Instant.now().toEpochMilli();
 ULID ulid = ulid(timestamp);
 System.out.printf("ULID from timestamp: %s%n", ulid);
-// ULID from timestamp: 01J867H5SF1P2H7S846Q2K1R1M
+// ULID from timestamp: 01J8THQNJ9VHR3S2QHP2DRRTKS
 ```
 
 **Creating a ULID from an Existing String**
 
 ```Java
 // Example ULID string
-String ulidString = "01F8MECHZX3TBDSZ7XY9GHZ4QJ";
+String ulidString = "01J8THQNJ9VHR3S2QHP2DRRTKS";
 ULID ulid = ulid(ulidString);
 System.out.printf("ULID from string: %s%n", ulid);
-// ULID from string: 01F8MECHZX3TBDSZ7XY9GHZ4QJ
+// ULID from string: 01J8THQNJ9VHR3S2QHP2DRRTKS
 ```
 
 **Getting a Timestamp from an Existing ULID**
 
 ```Java
 // Example ULID string
-String ulidString = "01F8MECHZX3TBDSZ7XY9GHZ4QJ";
+String ulidString = "01J8THQNJ9VHR3S2QHP2DRRTKS";
 ULID ulid = ulid(ulidString);
 Instant timestamp = ulid.getTimestamp();
 System.out.printf("Timestamp from existing ulid: %s%n", timestamp);
-// Timestamp from existing ulid: 2021-06-20T10:10:18.237Z
+// Timestamp from existing ulid: 2024-09-27T13:11:09.769Z
 ```
 
 ## API Reference
@@ -143,5 +143,4 @@ Contributions are welcome! Feel free to open issues or submit pull requests to e
 2. **Usage**: Shows examples of generating ULIDs using the `U4J` class, including from a timestamp, or
    string.
 3. **API Reference**: Documents the public methods available in `U4J` and `ULID` classes.
-4. **Unit Tests**: Briefly mentions the existence of unit tests and includes a sample test case.
-5. **Contributing**: Encourages contributions and provides contact info for support.
+4. **Contributing**: Encourages contributions and provides contact info for support.
