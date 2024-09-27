@@ -24,7 +24,7 @@ final class Encodings {
     /**
      * The {@link ThreadLocal} {@link SecureRandom} instance used to generate random byte arrays for ULIDs.
      */
-    private static final ThreadLocal<SecureRandom> RANDOM = ThreadLocal.withInitial(SecureRandom::new);
+    private static final ThreadLocal<SecureRandom> RANDOM;
 
     /**
      * Stores the last generated timestamp to handle conflicts during ULID generation.
@@ -37,6 +37,7 @@ final class Encodings {
     private static final byte[] lastRandom;
 
     static {
+        RANDOM = ThreadLocal.withInitial(SecureRandom::new);
         lastTimestamp = new AtomicLong(Instant.now().toEpochMilli());
         lastRandom = new byte[RANDOM_SIZE];
         RANDOM.get().nextBytes(lastRandom);
