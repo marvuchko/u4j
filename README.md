@@ -75,7 +75,7 @@ public class Main {
 
 ```
 
-**Creating a ULID from a Specific Timestamp**
+**Creating ULID from a Specific Timestamp**
 
 You can create a ULID based on a specific timestamp:
 
@@ -91,7 +91,7 @@ System.out.printf("ULID from timestamp: %s%n", ulid);
 
 ```
 
-**Creating a ULID from an Existing String**
+**Creating ULID from an Existing String**
 
 ```Java
 
@@ -105,7 +105,7 @@ System.out.printf("ULID from string: %s%n", ulid);
 
 ```
 
-**Getting a Timestamp from an Existing ULID**
+**Getting Timestamp from an Existing ULID**
 
 ```Java
 

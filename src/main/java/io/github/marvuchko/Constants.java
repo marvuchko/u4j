@@ -8,6 +8,8 @@ package io.github.marvuchko;
  * <p>
  * This class is designed to be uninstantiable and provides only static fields and constants.
  * </p>
+ *
+ * @author Marko Vučković
  */
 final class Constants {
 

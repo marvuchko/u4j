@@ -10,6 +10,8 @@ package io.github.marvuchko;
  * <p>
  * This class is final and cannot be instantiated.
  * </p>
+ *
+ * @author Marko Vučković
  */
 public final class U4J {
 

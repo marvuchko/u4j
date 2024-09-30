@@ -18,6 +18,8 @@ import static java.util.Arrays.copyOf;
  * <p>
  * This class cannot be instantiated or extended, and all methods are static.
  * </p>
+ *
+ * @author Marko Vučković
  */
 final class Encodings {
 

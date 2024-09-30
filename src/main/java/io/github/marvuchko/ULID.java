@@ -19,6 +19,7 @@ import static io.github.marvuchko.Constants.*;
  * This class implements {@code Comparable<ULID>}.
  * </p>
  *
+ * @author Marko Vučković
  * @see <a href="https://github.com/ulid/spec">ULID Specification</a>
  */
 public final class ULID implements Comparable<ULID> {
