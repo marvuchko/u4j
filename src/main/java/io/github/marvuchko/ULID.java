@@ -124,7 +124,7 @@ public final class ULID implements Comparable<ULID> {
      * @return an {@code Instant} representing the timestamp of the ULID.
      */
     public Instant getTimestamp() {
-        return decodeTimestamp(value.getBytes());
+        return decodeTimestamp(value.getBytes(StandardCharsets.UTF_8));
     }
 
     /**
