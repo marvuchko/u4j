@@ -9,13 +9,13 @@
 </p>
 
 #
-<h1 align="center">U4J: ULID Java Library</h1>
+<h1 align="center">⚝ U4J: ULID Java Library ⚝</h1>
 
 **U4J** _(ULIDs for Java)_ is a lightweight utility library for generating and managing ULIDs (Universally Unique
 Lexicographically Sortable Identifiers) in Java. It provides convenient static methods for creating ULIDs, either based
 on the current timestamp, a custom timestamp, or existing ULID strings.
 
-## Table of Contents
+## 📑 Table of Contents
 - [Features](#Features)
 - [Getting Started](#Getting-Started)
   - [Installation](#Installation)
@@ -24,14 +24,14 @@ on the current timestamp, a custom timestamp, or existing ULID strings.
 - [License](#license)
 - [Contributing](#contributing)
 
-## Features
+## 🛠️ Features
 
 - Generate ULIDs using the current timestamp.
 - Create ULIDs from specific timestamps (in milliseconds since the Unix epoch).
 - Support for creating ULIDs from existing strings.
 - Immutable, lightweight, and thread-safe design.
 
-## Getting Started
+## 🏁 Getting Started
 
 ### Installation
 
@@ -52,7 +52,7 @@ For Gradle:
 implementation 'io.github.marvuchko:u4j:1.0.0'
 ```
 
-## Usage
+## ⚙️ Usage
 
 The main class for working with ULIDs is U4J, which provides simple static methods to create or manage ULIDs. Below are
 examples of how to use the library.
@@ -120,7 +120,7 @@ System.out.printf("Timestamp from existing ulid: %s%n", timestamp);
 
 ```
 
-## API Reference
+## 🗎 API Reference
 
 **U4J Class**
 
@@ -145,15 +145,15 @@ The `ULID` class offers the following methods:
 * `Instant getTimestamp()` <br>
   Extracts the timestamp from the ULID.
 
-## License
+## 🗋 License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-## Contributing
+## 🔨 Contributing
 
 Contributions are welcome! Feel free to open issues or submit pull requests to enhance the functionality.
 
-## Sections Explained:
+## 🗹 Sections Explained:
 
 1. **Installation**: Provides instructions for adding the library to a project via Maven or Gradle.
 2. **Usage**: Shows examples of generating ULIDs using the `U4J` class, including from a timestamp, or
