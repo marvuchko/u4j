@@ -161,9 +161,7 @@ public final class ULID implements Comparable<ULID> {
         if (!Objects.equals(getClass(), other.getClass())) {
             return false;
         }
-        if (!(other instanceof ULID ulid)) {
-            return false;
-        }
+        ULID ulid = (ULID) other;
         return Objects.deepEquals(value, ulid.value);
     }
 
