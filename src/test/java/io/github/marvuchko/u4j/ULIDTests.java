@@ -2,6 +2,7 @@ package io.github.marvuchko.u4j;
 
 import org.junit.jupiter.api.Test;
 
+import java.time.Instant;
 import java.util.UUID;
 
 import static io.github.marvuchko.u4j.U4J.ulid;
@@ -68,6 +69,18 @@ class ULIDTests {
         assertThrows(IllegalArgumentException.class, () -> {
            ulid("01J867H5SF1P2H7S846Q2K1R1M2");
         });
+    }
+
+    @Test
+    void testUlidConflictComparation() {
+        long now = Instant.now().toEpochMilli();
+
+        for (int i = 0; i < 100_000; ++i) {
+            ULID ulid1 = ulid(now);
+            ULID ulid2 = ulid(now);
+
+            assertNotEquals(ulid1, ulid2, "ULIDs should be different");
+        }
     }
 
     @Test
