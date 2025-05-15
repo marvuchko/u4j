@@ -1,10 +1,10 @@
-package io.github.marvuchko;
+package io.github.marvuchko.u4j;
 
 import org.junit.jupiter.api.Test;
 
 import java.util.UUID;
 
-import static io.github.marvuchko.U4J.ulid;
+import static io.github.marvuchko.u4j.U4J.ulid;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ULIDTests {
@@ -14,20 +14,20 @@ class ULIDTests {
     }
 
     @Test
-    public void testUlidLength() {
+    void testUlidLength() {
         String ulid = generateUlid();
         assertEquals(26, ulid.length(), "ULID should be 26 characters long");
     }
 
     @Test
-    public void testUlidCharacters() {
+    void testUlidCharacters() {
         String ulid = generateUlid();
         assertTrue(ulid.matches("[0-9A-HJKMNP-TV-Z]{26}"),
                 "ULID should only contain valid characters (0-9, A-H, J-K, M-N, P-T, V-Z)");
     }
 
     @Test
-    public void testUlidUniqueness() {
+    void testUlidUniqueness() {
         String ulid1 = generateUlid();
         String ulid2 = generateUlid();
         assertNotEquals(ulid1, ulid2, "Each ULID should be unique");
@@ -35,7 +35,7 @@ class ULIDTests {
 
 
     @Test
-    public void testUlidEquals() {
+    void testUlidEquals() {
         String ulid1 = ulid("01J867H5SF1P2H7S846Q2K1R1M").getValue();
         String ulid2 = ulid("01J867H5SF1P2H7S846Q2K1R1M").getValue();
 
@@ -45,7 +45,7 @@ class ULIDTests {
     }
 
     @Test
-    public void testUlidNotEqualsWhenCompareWithNull() {
+    void testUlidNotEqualsWhenCompareWithNull() {
         String ulid1 = ulid("01J867H5SF1P2H7S846Q2K1R1M").getValue();
 
         boolean notEqual = ulid1.equals(null);
@@ -53,7 +53,7 @@ class ULIDTests {
     }
 
     @Test
-    public void testUlidNotEqualsWhenComparingWithNonULID() {
+    void testUlidNotEqualsWhenComparingWithNonULID() {
         String ulid1 = ulid("01J867H5SF1P2H7S846Q2K1R1M").getValue();
 
         boolean notEqual = ulid1.equals(UUID.randomUUID());
@@ -61,7 +61,7 @@ class ULIDTests {
     }
 
     @Test
-    public void testUlidCreationFromInvalidUlidString() {
+    void testUlidCreationFromInvalidUlidString() {
         boolean valid = ULID.isValid("01J867H5SF1P2H7S846Q2K1R1M2");
 
         assertFalse(valid);
@@ -71,28 +71,28 @@ class ULIDTests {
     }
 
     @Test
-    public void testUlidComparation() {
+    void testUlidComparation() {
         ULID ulid1 = ulid();
         ULID ulid2 = ulid();
 
         int compare = ulid1.compareTo(ulid2);
-        assertEquals(-1, compare, "First ULID should be lexicographically before the second one");
+        assertTrue(compare < 0, "First ULID should be lexicographically before the second one");
     }
 
     @Test
-    public void testUlidIsNotNull() {
+    void testUlidIsNotNull() {
         String ulid = generateUlid();
         assertNotNull(ulid, "ULID should not be null");
     }
 
     @Test
-    public void testUlidIsString() {
+    void testUlidIsString() {
         String ulid = generateUlid();
         assertNotNull(ulid, "ULID should be a string");
     }
 
     @Test
-    public void testMultipleUlidUniqueness() {
+    void testMultipleUlidUniqueness() {
         for (int i = 0; i < 100_000; i++) {
             String ulid1 = generateUlid();
             String ulid2 = generateUlid();
@@ -101,7 +101,7 @@ class ULIDTests {
     }
 
     @Test
-    public void testUlidLexicographicalOrder() {
+    void testUlidLexicographicalOrder() {
         String ulid1 = generateUlid();
         String ulid2 = generateUlid();
         assertTrue(ulid1.compareTo(ulid2) != 0,
@@ -109,27 +109,27 @@ class ULIDTests {
     }
 
     @Test
-    public void testSpecificUlid() {
+    void testSpecificUlid() {
         String ulid = "01ARZ3NDEKTSV4RRFFQ69G5FAV";
         assertEquals(26, ulid(ulid).toString().length(), "The specific ULID should be 26 characters long");
     }
 
     @Test
-    public void testEdgeCaseUlid() {
+    void testEdgeCaseUlid() {
         String ulid = "00000000000000000000000000";  // Edge case ULID (min value)
         assertEquals(ulid, ulid(ulid).toString(),
                 "Edge case ULID should be valid and generated correctly");
     }
 
     @Test
-    public void testMaxValueUlid() {
+    void testMaxValueUlid() {
         String ulid = "7ZZZZZZZZZZZZZZZZZZZZZZZZZ";  // Example maximum ULID
         assertEquals(ulid, ulid(ulid).toString(),
                 "The maximum value ULID should be generated correctly");
     }
 
     @Test
-    public void testBatchOfUlids() {
+    void testBatchOfUlids() {
         for (int i = 0; i < 100_000; i++) {
             String ulid = generateUlid();
             assertNotNull(ulid, "ULID in batch should not be null");

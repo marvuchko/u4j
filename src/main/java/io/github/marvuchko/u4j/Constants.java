@@ -1,4 +1,4 @@
-package io.github.marvuchko;
+package io.github.marvuchko.u4j;
 
 /**
  * A utility class that defines constants used for encoding and decoding ULIDs (Universally Unique Lexicographically Sortable Identifiers).

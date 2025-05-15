@@ -1,8 +1,8 @@
-package io.github.marvuchko;
+package io.github.marvuchko.u4j;
 
 import org.junit.jupiter.api.Test;
 
-import static io.github.marvuchko.U4J.ulid;
+import static io.github.marvuchko.u4j.U4J.ulid;
 import static org.junit.jupiter.api.Assertions.*;
 
 class U4JTests {

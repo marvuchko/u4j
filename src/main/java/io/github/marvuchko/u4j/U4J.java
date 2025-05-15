@@ -1,4 +1,4 @@
-package io.github.marvuchko;
+package io.github.marvuchko.u4j;
 
 /**
  * Utility class for generating and managing ULIDs.

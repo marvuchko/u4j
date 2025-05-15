@@ -1,13 +1,13 @@
-package io.github.marvuchko;
+package io.github.marvuchko.u4j;
 
 import java.nio.charset.StandardCharsets;
 import java.time.Instant;
 import java.util.Arrays;
 import java.util.Objects;
 
-import static io.github.marvuchko.Encodings.decodeTimestamp;
-import static io.github.marvuchko.Encodings.encodeAndGet;
-import static io.github.marvuchko.Constants.*;
+import static io.github.marvuchko.u4j.Encodings.decodeTimestamp;
+import static io.github.marvuchko.u4j.Encodings.encodeAndGet;
+import static io.github.marvuchko.u4j.Constants.*;
 
 /**
  * Represents a ULID (Universally Unique Lexicographically Sortable Identifier),

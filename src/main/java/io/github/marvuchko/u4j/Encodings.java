@@ -1,11 +1,11 @@
-package io.github.marvuchko;
+package io.github.marvuchko.u4j;
 
 import java.security.SecureRandom;
 import java.time.Instant;
 import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicLong;
 
-import static io.github.marvuchko.Constants.*;
+import static io.github.marvuchko.u4j.Constants.*;
 import static java.util.Arrays.copyOf;
 
 /**
